@@ -22,7 +22,7 @@ for (i = 0; i< 5; i++ ){
    
     const humanSelect = getHumanChoice();
     const computerSelect = getComputerChoice();
-
+//nada//
 
 
 
