@@ -1,3 +1,5 @@
+//function for randomized computer choice of RPS//
+
 function getComputerChoice() {
     let choices = ['rock', 'paper', 'scissors'];
 
@@ -6,10 +8,39 @@ function getComputerChoice() {
     return output;
 }
 
-function getHumanChoice() {
-    let decision = prompt('What is your decision?');
-    return decision.toLowerCase();
+let div = document.createElement('div');
+document.body.appendChild(div);
+
+//create a function for the three buttons where when a 
+//user clicks on the button, it returns Rock, paper, or scissors/
+
+function getHumanChoice(){
+
+
+
+const rock = document.getElementById("rock");
+rock.addEventListener("click", function(){
+    div.innerHTML = '<p>You chose rock!</p>';
+    return div;
+})
+
+
+const paper = document.getElementById("paper");
+paper.addEventListener("click", function(){
+    div.innerHTML = '<p>You chose paper!</p>';
+    return div;
+})
+
+const scissors = document.getElementById("scissors");
+scissors.addEventListener("click", function(){
+    div.innerHTML = '<p>You chose scissors!</p>';
+    return div;
+})
+
 }
+//end
+
+//descrambling code below....//
 
 function playGame(){
 
@@ -81,9 +112,6 @@ console.log('After five rounds the winner is ' + champion);
 
 
 playGame();
-
-
-
 
 
 
