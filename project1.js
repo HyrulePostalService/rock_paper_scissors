@@ -14,47 +14,49 @@ document.body.appendChild(div);
 //create a function for the three buttons where when a 
 //user clicks on the button, it returns Rock, paper, or scissors/
 
-function getHumanChoice(){
 
-
-
-const rock = document.getElementById("rock");
-rock.addEventListener("click", function(){
-    div.innerHTML = '<p>You chose rock!</p>';
-    return div;
-})
-
-
-const paper = document.getElementById("paper");
-paper.addEventListener("click", function(){
-    div.innerHTML = '<p>You chose paper!</p>';
-    return div;
-})
-
-const scissors = document.getElementById("scissors");
-scissors.addEventListener("click", function(){
-    div.innerHTML = '<p>You chose scissors!</p>';
-    return div;
-})
-
-}
-//end
-
-//descrambling code below....//
 
 function playGame(){
 
     let humanScore = 0;
 let computerScore = 0;
    let champion = '';
+   
+   function getHumanChoice(){
 
+
+
+    let rock = document.getElementById("rock");
+    rock = rock.addEventListener("click", function(){
+        div.innerHTML = '<p>You chose rock!</p>' + '<p>Computer chose' + " " + getComputerChoice()+ '</p>' +  playRound();
+        
+    })
+    
+   
+    let paper = document.getElementById("paper");
+    paper.addEventListener("click", function(){
+       
+        div.innerHTML = '<p>You chose paper!</p>';
+        
+    })
+    
+    let scissors = document.getElementById("scissors");
+    scissors.addEventListener("click", function(){
+       
+        div.innerHTML = '<p>You chose scissors!</p>';
+        
+    })
+    
+    }
+    //end
+    
+    //descrambling code below....//
 
 for (i = 0; i< 5; i++ ){
    
     const humanSelect = getHumanChoice();
     const computerSelect = getComputerChoice();
 
-//test for ui branch push//
 
 
 function playRound(humanSelect, computerSelect){
@@ -63,17 +65,17 @@ function playRound(humanSelect, computerSelect){
         return ("It's a tie!");
     }
 
-    else if (humanSelect == 'rock' && computerSelect == 'scissors'){
+    else if (humanSelect === rock && computerSelect == 'scissors'){
         humanScore++;
         return ("You win! Rock beats Scissors");
     }
 
-    else if (humanSelect == 'paper' && computerSelect == 'rock'){
+    else if (humanSelect === paper && computerSelect == 'rock'){
        humanScore++;
         return ("You win! paper beats rock");
     }
 
-    else if (humanSelect == 'scissors' && computerSelect == 'paper'){
+    else if (humanSelect === scissors && computerSelect == 'paper'){
         humanScore++;
         return ("You win! scissors beats paper");
     }
