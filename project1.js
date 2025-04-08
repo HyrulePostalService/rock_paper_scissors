@@ -1,5 +1,3 @@
-//function for randomized computer choice of RPS//
-
 function getComputerChoice() {
     let choices = ['rock', 'paper', 'scissors'];
 
@@ -8,112 +6,119 @@ function getComputerChoice() {
     return output;
 }
 
-let div = document.createElement('div');
+let div = document.createElement("div");
 document.body.appendChild(div);
 
-//create a function for the three buttons where when a 
-//user clicks on the button, it returns Rock, paper, or scissors/
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
 
 
-
-function playGame(){
-
-    let humanScore = 0;
+let humanScore = 0;
 let computerScore = 0;
-   let champion = '';
-   
-   function getHumanChoice(){
+let roundsPlayed = 0;
+let champion = '';
 
 
 
-    let rock = document.getElementById("rock");
-    rock = rock.addEventListener("click", function(){
-        div.innerHTML = '<p>You chose rock!</p>' + '<p>Computer chose' + " " + getComputerChoice()+ '</p>' +  playRound();
-        
-    })
-    
-   
-    let paper = document.getElementById("paper");
-    paper.addEventListener("click", function(){
-       
-        div.innerHTML = '<p>You chose paper!</p>';
-        
-    })
-    
-    let scissors = document.getElementById("scissors");
-    scissors.addEventListener("click", function(){
-       
-        div.innerHTML = '<p>You chose scissors!</p>';
-        
-    })
-    
-    }
-    //end
-    
-    //descrambling code below....//
-
-for (i = 0; i< 5; i++ ){
-   
-    const humanSelect = getHumanChoice();
-    const computerSelect = getComputerChoice();
 
 
 
 function playRound(humanSelect, computerSelect){
     if (humanSelect === computerSelect) {
-       
+       roundsPlayed++
         return ("It's a tie!");
     }
 
-    else if (humanSelect === rock && computerSelect == 'scissors'){
+    else if (humanSelect == 'rock' && computerSelect == 'scissors'){
+        roundsPlayed++
         humanScore++;
         return ("You win! Rock beats Scissors");
     }
 
-    else if (humanSelect === paper && computerSelect == 'rock'){
+    else if (humanSelect == 'paper' && computerSelect == 'rock'){
+        roundsPlayed++;
        humanScore++;
         return ("You win! paper beats rock");
     }
 
-    else if (humanSelect === scissors && computerSelect == 'paper'){
+    else if (humanSelect == 'scissors' && computerSelect == 'paper'){
+        roundsPlayed++
         humanScore++;
         return ("You win! scissors beats paper");
     }
 
     else {
+        roundsPlayed++
         computerScore++;
         return ("You lose, " + computerSelect + " beats " + humanSelect);
         
     }
 
-
-
-}
-
-if (humanScore > computerScore){
-    champion = "Vincent! Holy shit you fucking did it dude! You are a WINNER!";
-}
-
-else if (computerScore > humanScore){
-    champion = "Computer... You got smoked by your own laptop. Fool.";
-}
-
-else if (computerScore == humanScore) {
-    champion = "Tis a tie. Oh my.";
-}
-
-console.log(playRound(humanSelect, computerSelect));
-
-console.log('Player wins a total of ' + humanScore);
-console.log('Computer wins a total of ' + computerScore);
+    
 
 }
 
-console.log('After five rounds the winner is ' + champion);
+
+
+function getHumanChoice() {
+
+        
+    rock.addEventListener("click", function(){
+        if(roundsPlayed < 5 ){
+            let playerChoice = 'rock';
+        let computerChoice = getComputerChoice();
+        let result = playRound(playerChoice, computerChoice);
+        div.innerHTML = '<p>You chose ' + playerChoice + ' Computer chose ' + computerChoice + '</p>' + 
+        '<p> The winner is.... </p>' + result +'<p> Your score is ' + humanScore +  ' The computer score is ' + computerScore + '</p>';
+            imReady();
+        }})
+
+    paper.addEventListener("click", function(){
+        if(roundsPlayed < 5 ){
+            let playerChoice = 'paper';
+        let computerChoice = getComputerChoice();
+        let result = playRound(playerChoice, computerChoice);
+        div.innerHTML = '<p>You chose ' + playerChoice + ' Computer chose ' + computerChoice + '</p>' + 
+        '<p> The winner is.... </p>' + result +'<p> Your score is ' + humanScore +  ' The computer score is ' + computerScore + '</p>';
+   
+            imReady();
+    }})
+       
+    
+    scissors.addEventListener("click", function(){
+        if(roundsPlayed < 5 ){
+            let playerChoice = 'scissors';
+        let computerChoice = getComputerChoice();
+        let result = playRound(playerChoice, computerChoice);
+        div.innerHTML = '<p>You chose ' + playerChoice + ' Computer chose ' + computerChoice + '</p>' + 
+        '<p> The winner is.... </p>' + result +'<p> Your score is ' + humanScore +  ' The computer score is ' + computerScore + '</p>';
+            
+        imReady();
+    
+    }})
+
 }
 
+function imReady(){
+    if(roundsPlayed == 5){
+        displayChampion();
+    }
+}
 
-playGame();
+function displayChampion() {
+    if (humanScore > computerScore) {
+        champion = "Vincent! You are a WINNER!";
+    } else if (computerScore > humanScore) {
+        champion = "Computer... You got smoked by your own laptop.";
+    } else {
+        champion = "Tis a tie.";
+    }
 
+    div.innerHTML += `<p>After 5 rounds, the final result is: ${champion}</p>`;}
+
+
+
+getHumanChoice();
 
 
