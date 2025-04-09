@@ -1,124 +1,129 @@
-function getComputerChoice() {
-    let choices = ['rock', 'paper', 'scissors'];
-
-    let output = choices[Math.floor(Math.random() * choices.length)];
-
-    return output;
-}
-
-let div = document.createElement("div");
-document.body.appendChild(div);
-
 const rock = document.getElementById("rock");
 const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
 
+let div = document.createElement("div");
+document.body.appendChild(div);
 
 let humanScore = 0;
 let computerScore = 0;
-let roundsPlayed = 0;
+let roundsTotal = 0;
 let champion = '';
 
 
+function getComputerChoice(){
+    let choices = ['rock', 'paper', 'scissors'];
+    let output = choices[Math.floor(Math.random() * choices.length)];
+    return output;
+}
 
 
 
+function getHumanChoice(){
+    rock.addEventListener("click", function(){
+        if(roundsTotal < 5 ){
 
-function playRound(humanSelect, computerSelect){
-    if (humanSelect === computerSelect) {
-       roundsPlayed++
-        return ("It's a tie!");
+        
+        let playerChoice = 'rock';
+        let computerChoice = getComputerChoice();
+        let result = playRound(playerChoice, computerChoice);
+        div.innerHTML = '<p>You chose ' + playerChoice + ' the computer chose ' + computerChoice + ' </p>'
+        + '<p> the result of this feirce match is...<br> </p> ' + result + '<p>The current score is ' + humanScore + ' For you and ' + computerScore + ' For Computer';
+    
+            fiveRounds();
+
+    }})
+
+    paper.addEventListener("click", function(){
+        if(roundsTotal < 5 ){
+
+        
+        let playerChoice = 'paper';
+        let computerChoice = getComputerChoice();
+        let result = playRound(playerChoice, computerChoice);
+        div.innerHTML = '<p>You chose ' + playerChoice + ' the computer chose ' + computerChoice + ' </p>'
+        + '<p> the result of this feirce match is....<br> </p>'  + result + '<p>The current score is ' + humanScore + ' For you and ' + computerScore + ' For Computer';
+    
+            fiveRounds();
+
+    }})
+
+    scissors.addEventListener("click", function(){
+        if (roundsTotal < 5 ){
+
+        
+        let playerChoice = 'scissors';
+        let computerChoice = getComputerChoice();
+        let result = playRound(playerChoice, computerChoice);
+        div.innerHTML = '<p>You chose ' + playerChoice + ' the computer chose ' + computerChoice + ' </p>'
+        + '<p> the result of this feirce match is....<br> </p>'  + result + '<p>The current score is ' + humanScore + ' For you and ' + computerScore + ' For Computer';
+            
+       fiveRounds();
+    }})
+
+  
+}
+
+
+
+function playRound(playerChoice, computerChoice){
+
+            
+    
+    if (playerChoice === computerChoice){
+        roundsTotal++
+        return "It's a tie, oh my!";
     }
 
-    else if (humanSelect == 'rock' && computerSelect == 'scissors'){
-        roundsPlayed++
+    else if (playerChoice === 'rock' && computerChoice === 'scissors'){
+        roundsTotal++;
         humanScore++;
-        return ("You win! Rock beats Scissors");
+        return "You win this round..." + playerChoice + " beats " + computerChoice
     }
 
-    else if (humanSelect == 'paper' && computerSelect == 'rock'){
-        roundsPlayed++;
-       humanScore++;
-        return ("You win! paper beats rock");
-    }
-
-    else if (humanSelect == 'scissors' && computerSelect == 'paper'){
-        roundsPlayed++
+    else if(playerChoice === 'paper' && computerChoice === 'rock'){
+        roundsTotal++;
         humanScore++;
-        return ("You win! scissors beats paper");
+        return "You win this round..." + playerChoice + " beats " + computerChoice
+    }
+
+    else if (playerChoice === 'scissors' && computerChoice === 'paper'){
+        roundsTotal++;
+        humanScore++;
+        return "You win this round..." + playerChoice + " beats " + computerChoice
     }
 
     else {
-        roundsPlayed++
+        roundsTotal++;
         computerScore++;
-        return ("You lose, " + computerSelect + " beats " + humanSelect);
-        
+        return "You lose this round..." + computerChoice + " beats " + playerChoice
     }
 
     
-
 }
 
-
-
-function getHumanChoice() {
-
-        
-    rock.addEventListener("click", function(){
-        if(roundsPlayed < 5 ){
-            let playerChoice = 'rock';
-        let computerChoice = getComputerChoice();
-        let result = playRound(playerChoice, computerChoice);
-        div.innerHTML = '<p>You chose ' + playerChoice + ' Computer chose ' + computerChoice + '</p>' + 
-        '<p> The winner is.... </p>' + result +'<p> Your score is ' + humanScore +  ' The computer score is ' + computerScore + '</p>';
-            imReady();
-        }})
-
-    paper.addEventListener("click", function(){
-        if(roundsPlayed < 5 ){
-            let playerChoice = 'paper';
-        let computerChoice = getComputerChoice();
-        let result = playRound(playerChoice, computerChoice);
-        div.innerHTML = '<p>You chose ' + playerChoice + ' Computer chose ' + computerChoice + '</p>' + 
-        '<p> The winner is.... </p>' + result +'<p> Your score is ' + humanScore +  ' The computer score is ' + computerScore + '</p>';
-   
-            imReady();
-    }})
-       
-    
-    scissors.addEventListener("click", function(){
-        if(roundsPlayed < 5 ){
-            let playerChoice = 'scissors';
-        let computerChoice = getComputerChoice();
-        let result = playRound(playerChoice, computerChoice);
-        div.innerHTML = '<p>You chose ' + playerChoice + ' Computer chose ' + computerChoice + '</p>' + 
-        '<p> The winner is.... </p>' + result +'<p> Your score is ' + humanScore +  ' The computer score is ' + computerScore + '</p>';
-            
-        imReady();
-    
-    }})
-
-}
-
-function imReady(){
-    if(roundsPlayed == 5){
+function fiveRounds(){
+    if(roundsTotal == 5){
         displayChampion();
     }
 }
 
-function displayChampion() {
-    if (humanScore > computerScore) {
-        champion = "Vincent! You are a WINNER!";
-    } else if (computerScore > humanScore) {
-        champion = "Computer... You got smoked by your own laptop.";
-    } else {
-        champion = "Tis a tie.";
-    }
+function displayChampion(){
+  if (humanScore > computerScore){
+    champion = "The winner is you! You should feel fantastic about yourself dear friend. Well done!";
+  }
+  else if (computerScore > humanScore){
+    champion =  "The winner is the computer. Oh well....";
+  }
 
-    div.innerHTML += `<p>After 5 rounds, the final result is: ${champion}</p>`;}
+  else {
+    champion =  "It's a tie this time...";
+  }
+
+  div.innerHTML += '<p> The champion is.... </p>' + champion;
+
+}
 
 
 
 getHumanChoice();
-
-
